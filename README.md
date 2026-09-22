@@ -1,8 +1,7 @@
 # mixcheck
 
 Measures a mix against a target spectral tilt and reports what's objectively
-checkable. It does not listen, and it has no opinion about whether the mix is
-good — it tells you what's there.
+checkable.
 
 ```
 python3 main.py mix.wav
@@ -10,32 +9,18 @@ python3 main.py mix.wav --tilt -0.8 --out ./reports
 python3 main.py mix.wav --limit 60          # first minute only
 ```
 
-Needs `numpy`, `scipy`, `soundfile`, `matplotlib`.
-
 ## The model
 
-- **The target is a tilt**, in dB per octave, referenced to 1 kHz. Default
-  `-1.0`. Everything is measured as **deviation from it**: positive is excess
-  energy, negative is a deficit.
-- **Third-octave band *energy*, not density.** Pink noise has equal energy per
-  octave, so it reads flat on this axis — which is what makes a tilt target
-  meaningful. Comparing band *densities* across different bandwidths adds a
-  spurious 3 dB/octave and is the easy mistake here.
-- **Below the working floor (40 Hz) nothing is scored.** A near-empty band
-  produces a huge ratio to target that means nothing. The plot shades it.
+**The target is a tilt**, ie, a straight line across spectral energy, in dB per octave. Everything is measured as **deviation from it**: positive is excess
+  energy, negative is a deficit. Negative slope is more bass than treble, positive the other way around.
 
 ## The plot
 
-`*_spectrum.png` shows deviation, not correction. A deficit is a trough, an
+`*_spectrum.png` shows deviation. A deficit is a trough, an
 excess is a peak, and red intensity tracks distance from target in either
 direction. Direction is carried by position relative to the zero line, so
-colour is doing one job — magnitude — rather than two.
+colour is magnitude. This is deliberately the inverse of what a corrective EQ would draw.
 
-This is deliberately the inverse of what a corrective EQ would draw. Reading a
-correction curve invites you to apply it; reading a deviation curve tells you
-what the mix is doing and leaves the decision separate. Not everything missing
-should be boosted — if a band is empty, EQ raises noise and leakage, and the
-answer is a source.
 
 `*_timeline.png` shows per-band level over the arrangement with detected
 section changes marked. This is what catches an element entering and pushing
