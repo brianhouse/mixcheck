@@ -1,7 +1,7 @@
 # mixcheck
 
-Measures a mix against a target spectral tilt and reports what's objectively
-checkable.
+Measures a mix against a target spectral tilt. Made by Claude.
+
 
 ```
 python3 main.py mix.wav
@@ -11,8 +11,11 @@ python3 main.py mix.wav --limit 60          # first minute only
 
 ## The model
 
-**The target is a tilt**, ie, a straight line across spectral energy, in dB per octave. Everything is measured as **deviation from it**: positive is excess
+**The target is a "tilt"**, ie, a straight line across spectral energy, in dB per octave. Everything is measured as **deviation from it**: positive is excess
   energy, negative is a deficit. Negative slope is more bass than treble, positive the other way around.
+
+Note that mixes and masters are perhaps not directly comparable.
+
 
 ## The plot
 
